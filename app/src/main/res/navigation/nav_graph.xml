@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.karthik.myweather.ui.view.MainFragment"
+        android:label="Select City"
+        tools:layout="@layout/main_fragment" >
+        <action
+            android:id="@+id/action_mainFragment_to_selectLocationFragment"
+            app:destination="@id/selectLocationFragment"
+            app:launchSingleTop="false"
+            app:popUpToInclusive="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/selectLocationFragment"
+        android:name="com.karthik.myweather.ui.view.SelectLocationFragment"
+        android:label="Select Below City"
+        tools:layout="@layout/select_location_fragment" >
+        <action
+            android:id="@+id/action_selectLocationFragment_to_weatherFragment"
+            app:destination="@id/weatherFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/weatherFragment"
+        android:name="com.karthik.myweather.ui.view.WeatherFragment"
+        android:label="Weather"
+        tools:layout="@layout/weather_fragment" />
+</navigation>
