@@ -33,6 +33,7 @@ public class SelectCityFragment extends BaseFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.select_city_fragment, container, false);
+        binding.setLifecycleOwner(this);
         LinearLayoutManager layoutManager = new LinearLayoutManager(
                 getActivity(), LinearLayoutManager.VERTICAL, false);
         binding.rvItems.setLayoutManager(layoutManager);
@@ -51,10 +52,10 @@ public class SelectCityFragment extends BaseFragment {
         super.onCreate(savedInstanceState);
         mViewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(SelectCityViewModel.class);
-        registerLocations();
-        registerConsolidatedWeather();
         registerForLoadingIndicator(mViewModel);
         registerForErrorDialog(mViewModel);
+        registerLocations();
+        registerConsolidatedWeather();
     }
 
     @Override

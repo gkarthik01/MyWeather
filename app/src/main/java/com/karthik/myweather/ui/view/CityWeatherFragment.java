@@ -40,6 +40,7 @@ public class CityWeatherFragment extends BaseFragment {
                              @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.city_weather_fragment,
                 container, false);
+        binding.setLifecycleOwner(this);
         binding.setViewModel(mViewModel);
         LinearLayoutManager layoutManager = new LinearLayoutManager(
                 getActivity(), LinearLayoutManager.VERTICAL, false);

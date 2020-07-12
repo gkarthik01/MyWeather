@@ -39,6 +39,7 @@ public class SearchCityFragment extends BaseFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.search_city_fragment, container, false);
+        binding.setLifecycleOwner(this);
         binding.setViewModel(mViewModel);
         return binding.getRoot();
     }
@@ -51,7 +52,6 @@ public class SearchCityFragment extends BaseFragment {
         registerForLocationPermission();
         registerForGetLocation();
         registerNavEvent();
-        registerValidation();
         registerForLoadingIndicator(mViewModel);
         registerForErrorDialog(mViewModel);
     }
@@ -61,11 +61,6 @@ public class SearchCityFragment extends BaseFragment {
             mViewModel.onLocation(location);
             locationLiveData.removeObservers(this);
         });
-    }
-
-    private void registerValidation() {
-        mViewModel.isValid.observe(this, isValid -> binding.btnsubmit.setEnabled(isValid));
-
     }
 
     private void registerNavEvent() {
