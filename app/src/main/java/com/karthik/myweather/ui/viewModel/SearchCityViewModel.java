@@ -22,7 +22,7 @@ import javax.inject.Inject;
 import io.reactivex.Completable;
 import io.reactivex.disposables.CompositeDisposable;
 
-public class MainViewModel extends BaseViewModel {
+public class SearchCityViewModel extends BaseViewModel {
 
     public MutableLiveData<String> query = new MutableLiveData<>();
     public MediatorLiveData<Boolean> isValid = new MediatorLiveData<>();
@@ -35,8 +35,8 @@ public class MainViewModel extends BaseViewModel {
     private CompositeDisposable compositeDisposable;
 
     @Inject
-    public MainViewModel(WeatherService weatherService,
-                         WeatherDatabase weatherDatabase, RxScheduler scheduler) {
+    public SearchCityViewModel(WeatherService weatherService,
+                               WeatherDatabase weatherDatabase, RxScheduler scheduler) {
         this.weatherService = weatherService;
         this.weatherDatabase = weatherDatabase;
         this.scheduler = scheduler;

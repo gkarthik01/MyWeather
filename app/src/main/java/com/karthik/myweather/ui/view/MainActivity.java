@@ -17,8 +17,7 @@ public class MainActivity extends DaggerAppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
         NavigationUI.setupActionBarWithNavController(
-                this, Navigation.findNavController(findViewById(R.id.fragment_navHost)),
-                new AppBarConfiguration.Builder().build());
+                this, Navigation.findNavController(findViewById(R.id.fragment_navHost)));
     }
 
     @Override

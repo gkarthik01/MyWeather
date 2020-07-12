@@ -36,9 +36,9 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-public class MainViewModelTest extends BaseTest{
+public class SearchCityViewModelTest extends BaseTest{
 
-    MainViewModel viewModel;
+    SearchCityViewModel viewModel;
 
     @Mock
     WeatherDatabase weatherDatabase;
@@ -62,7 +62,7 @@ public class MainViewModelTest extends BaseTest{
         when(rxScheduler.mainThread()).thenReturn(Schedulers.trampoline());
         when(weatherDatabase.locationEntityDao()).thenReturn(locationEntityDao);
         when(weatherDatabase.cityWeatherDao()).thenReturn(cityWeatherDao);
-        viewModel = new MainViewModel(weatherService, weatherDatabase, rxScheduler);
+        viewModel = new SearchCityViewModel(weatherService, weatherDatabase, rxScheduler);
     }
 
     @After
@@ -135,7 +135,7 @@ public class MainViewModelTest extends BaseTest{
         android.location.Location location = mock(android.location.Location.class);
         when(location.getLatitude()).thenReturn(10.0);
         when(location.getLongitude()).thenReturn(11.0);
-        MainViewModel viewModelSpy = spy(viewModel);
+        SearchCityViewModel viewModelSpy = spy(viewModel);
         doNothing().when(viewModelSpy).getLocationResults(anyString());
         viewModelSpy.onLocation(location);
         verify(viewModelSpy).getLocationResults(anyString());

@@ -8,6 +8,7 @@ import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import com.karthik.myweather.BuildConfig;
 import com.karthik.myweather.data.WeatherDatabase;
 import com.karthik.myweather.network.WeatherService;
+import com.karthik.myweather.utils.BusinessUtils;
 import com.karthik.myweather.utils.RxScheduler;
 
 import javax.inject.Singleton;
@@ -72,6 +73,12 @@ public class ApplicationModule {
                 return AndroidSchedulers.mainThread();
             }
         };
+    }
+
+    @Provides
+    @Singleton
+    static BusinessUtils provideBusinessUtils(){
+        return new BusinessUtils();
     }
 
 }

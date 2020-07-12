@@ -18,21 +18,21 @@ import android.widget.TextView;
 
 import com.karthik.myweather.R;
 import com.karthik.myweather.data.entities.LocationEntity;
-import com.karthik.myweather.databinding.SelectLocationFragmentBinding;
-import com.karthik.myweather.ui.viewModel.SelectLocationViewModel;
+import com.karthik.myweather.databinding.SelectCityFragmentBinding;
+import com.karthik.myweather.ui.viewModel.SelectCityViewModel;
 
 import java.util.List;
 
-public class SelectLocationFragment extends BaseFragment {
+public class SelectCityFragment extends BaseFragment {
 
-    private SelectLocationViewModel mViewModel;
-    private SelectLocationFragmentBinding binding;
+    private SelectCityViewModel mViewModel;
+    private SelectCityFragmentBinding binding;
     private ItemsAdapter adapter;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.select_location_fragment, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.select_city_fragment, container, false);
         LinearLayoutManager layoutManager = new LinearLayoutManager(
                 getActivity(), LinearLayoutManager.VERTICAL, false);
         binding.rvItems.setLayoutManager(layoutManager);
@@ -50,7 +50,7 @@ public class SelectLocationFragment extends BaseFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mViewModel = ViewModelProviders.of(this, viewModelFactory)
-                .get(SelectLocationViewModel.class);
+                .get(SelectCityViewModel.class);
         registerLocations();
         registerConsolidatedWeather();
         registerForLoadingIndicator(mViewModel);
@@ -66,7 +66,7 @@ public class SelectLocationFragment extends BaseFragment {
     private void registerConsolidatedWeather() {
         mViewModel.locationId.observe(this, locationId -> {
             Bundle bundle = new Bundle();
-            bundle.putInt(WeatherFragment.Extra_Location_Id, locationId);
+            bundle.putInt(CityWeatherFragment.Extra_Location_Id, locationId);
             navController.navigate(R.id.action_selectLocationFragment_to_weatherFragment, bundle);
         });
     }

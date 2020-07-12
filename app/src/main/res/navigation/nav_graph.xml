@@ -3,13 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/mainFragment">
+    app:startDestination="@id/mainFragment"
+    android:label="Search City">
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.karthik.myweather.ui.view.MainFragment"
+        android:name="com.karthik.myweather.ui.view.SearchCityFragment"
         android:label="Select City"
-        tools:layout="@layout/main_fragment" >
+        tools:layout="@layout/search_city_fragment">
         <action
             android:id="@+id/action_mainFragment_to_selectLocationFragment"
             app:destination="@id/selectLocationFragment"
@@ -18,9 +19,9 @@
     </fragment>
     <fragment
         android:id="@+id/selectLocationFragment"
-        android:name="com.karthik.myweather.ui.view.SelectLocationFragment"
+        android:name="com.karthik.myweather.ui.view.SelectCityFragment"
         android:label="Select Below City"
-        tools:layout="@layout/select_location_fragment" >
+        tools:layout="@layout/select_city_fragment" >
         <action
             android:id="@+id/action_selectLocationFragment_to_weatherFragment"
             app:destination="@id/weatherFragment"
@@ -28,7 +29,7 @@
     </fragment>
     <fragment
         android:id="@+id/weatherFragment"
-        android:name="com.karthik.myweather.ui.view.WeatherFragment"
+        android:name="com.karthik.myweather.ui.view.CityWeatherFragment"
         android:label="Weather"
-        tools:layout="@layout/weather_fragment" />
+        tools:layout="@layout/city_weather_fragment" />
 </navigation>

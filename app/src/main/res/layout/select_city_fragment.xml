@@ -2,12 +2,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.view.SelectLocationFragment">
+    tools:context=".ui.view.SelectCityFragment">
 
     <data>
         <variable
             name="viewModel"
-            type="com.karthik.myweather.ui.viewModel.SelectLocationViewModel" />
+            type="com.karthik.myweather.ui.viewModel.SelectCityViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,10 +18,11 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
             android:text="@string/selectLocation"
-            android:textSize="20sp"
+            android:textSize="25sp"
+            android:textColor="@android:color/holo_blue_light"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -29,7 +30,6 @@
             android:id="@+id/rv_items"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="30dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="20dp"

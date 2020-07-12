@@ -18,17 +18,17 @@ import android.view.ViewGroup;
 
 import com.karthik.myweather.Permission;
 import com.karthik.myweather.R;
-import com.karthik.myweather.databinding.MainFragmentBinding;
-import com.karthik.myweather.ui.viewModel.MainViewModel;
+import com.karthik.myweather.databinding.SearchCityFragmentBinding;
+import com.karthik.myweather.ui.viewModel.SearchCityViewModel;
 import com.karthik.myweather.utils.LocationLiveData;
 
 import javax.inject.Inject;
 
-public class MainFragment extends BaseFragment {
+public class SearchCityFragment extends BaseFragment {
 
     private static final int MY_PERMISSIONS_REQUEST_CODE = 99;
-    private MainViewModel mViewModel;
-    private MainFragmentBinding binding;
+    private SearchCityViewModel mViewModel;
+    private SearchCityFragmentBinding binding;
     private LocationManager locationManager;
 
     @Inject
@@ -38,7 +38,7 @@ public class MainFragment extends BaseFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.main_fragment, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.search_city_fragment, container, false);
         binding.setViewModel(mViewModel);
         return binding.getRoot();
     }
@@ -46,7 +46,7 @@ public class MainFragment extends BaseFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this, viewModelFactory).get(MainViewModel.class);
+        mViewModel = ViewModelProviders.of(this, viewModelFactory).get(SearchCityViewModel.class);
         mViewModel.init();
         registerForLocationPermission();
         registerForGetLocation();

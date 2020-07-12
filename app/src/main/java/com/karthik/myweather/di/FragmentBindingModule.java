@@ -1,8 +1,8 @@
 package com.karthik.myweather.di;
 
-import com.karthik.myweather.ui.view.MainFragment;
-import com.karthik.myweather.ui.view.SelectLocationFragment;
-import com.karthik.myweather.ui.view.WeatherFragment;
+import com.karthik.myweather.ui.view.CityWeatherFragment;
+import com.karthik.myweather.ui.view.SearchCityFragment;
+import com.karthik.myweather.ui.view.SelectCityFragment;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -11,11 +11,11 @@ import dagger.android.ContributesAndroidInjector;
 public abstract class FragmentBindingModule {
 
     @ContributesAndroidInjector
-    abstract MainFragment provideMainFragment();
+    abstract SearchCityFragment provideMainFragment();
 
     @ContributesAndroidInjector
-    abstract SelectLocationFragment provideSelectLocationFragment();
+    abstract SelectCityFragment provideSelectLocationFragment();
 
     @ContributesAndroidInjector
-    abstract WeatherFragment provideWeatherFragment();
+    abstract CityWeatherFragment provideWeatherFragment();
 }

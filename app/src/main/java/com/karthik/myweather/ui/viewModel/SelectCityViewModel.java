@@ -9,6 +9,7 @@ import com.karthik.myweather.data.entities.Weather;
 import com.karthik.myweather.data.entities.LocationEntity;
 import com.karthik.myweather.network.WeatherService;
 import com.karthik.myweather.network.model.ConsolidatedWeather;
+import com.karthik.myweather.utils.BusinessUtils;
 import com.karthik.myweather.utils.RxScheduler;
 
 import java.util.List;
@@ -19,8 +20,9 @@ import javax.inject.Inject;
 import io.reactivex.Completable;
 import io.reactivex.disposables.CompositeDisposable;
 
-public class SelectLocationViewModel extends BaseViewModel {
+public class SelectCityViewModel extends BaseViewModel {
 
+    private BusinessUtils businessUtils;
     public MutableLiveData<List<LocationEntity>> locations;
     public MutableLiveData<Integer> locationId = new MutableLiveData<>();
     private WeatherDatabase weatherDatabase;
@@ -29,11 +31,13 @@ public class SelectLocationViewModel extends BaseViewModel {
     private CompositeDisposable compositeDisposable;
 
     @Inject
-    public SelectLocationViewModel(WeatherService weatherService,
-                                   WeatherDatabase weatherDatabase,
-                                   RxScheduler scheduler) {
+    public SelectCityViewModel(WeatherService weatherService,
+                               WeatherDatabase weatherDatabase,
+                               BusinessUtils businessUtils,
+                               RxScheduler scheduler) {
         this.weatherDatabase = weatherDatabase;
         this.weatherService = weatherService;
+        this.businessUtils = businessUtils;
         this.scheduler = scheduler;
         compositeDisposable = new CompositeDisposable();
         locations = new MutableLiveData<>();
@@ -64,8 +68,12 @@ public class SelectLocationViewModel extends BaseViewModel {
                     isLoading.postValue(true);
                 })
                 .flatMapCompletable(consolidatedWeather -> {
-                    CityWeather cityWeather = convertToDatabaseEntiry(locationIdToSearch, consolidatedWeather);
-                    return Completable.fromAction(() -> weatherDatabase.cityWeatherDao().add(cityWeather));
+                    CityWeather cityWeather = businessUtils.convertToDatabaseEntiry(
+                            locationIdToSearch, consolidatedWeather);
+                    return Completable.fromAction(() -> {
+                        weatherDatabase.cityWeatherDao().deleteAll();
+                        weatherDatabase.cityWeatherDao().add(cityWeather);
+                    });
                 })
                 .subscribeOn(scheduler.io())
                 .observeOn(scheduler.mainThread())
@@ -78,25 +86,5 @@ public class SelectLocationViewModel extends BaseViewModel {
                 });
     }
 
-    private CityWeather convertToDatabaseEntiry(int locationIdToSearch, ConsolidatedWeather consolidatedWeather) {
-        CityWeather cityWeather = new CityWeather();
-        cityWeather.city = new City(){{
-            locationId = consolidatedWeather.locationId;
-            cityName = consolidatedWeather.cityName;
-        }};
-        cityWeather.weatherList = consolidatedWeather
-                .consolidatedWeather
-                .stream()
-                .map(locationWeather -> new Weather(){{
-                    locationId = locationIdToSearch;
-                    date = locationWeather.date;
-                    minTemperature = locationWeather.minTemperature;
-                    maxTemperature = locationWeather.maxTemperature;
-                    windSpeed = locationWeather.windSpeed;
-                    weatherCode = locationWeather.weatherStateAbbr;
-                    weatherDescription = locationWeather.weatherStateName;
-                }})
-                .collect(Collectors.toList());
-        return cityWeather;
-    }
+
 }

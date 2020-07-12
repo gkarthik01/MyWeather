@@ -3,7 +3,10 @@ package com.karthik.myweather.ui.viewModel;
 import com.karthik.myweather.data.WeatherDatabase;
 import com.karthik.myweather.data.dao.CityWeatherDao;
 import com.karthik.myweather.data.dao.LocationEntityDao;
+import com.karthik.myweather.data.entities.City;
 import com.karthik.myweather.data.entities.CityWeather;
+import com.karthik.myweather.network.WeatherService;
+import com.karthik.myweather.utils.BusinessUtils;
 import com.karthik.myweather.utils.RxScheduler;
 
 import org.junit.After;
@@ -11,6 +14,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+
+import java.util.ArrayList;
 
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
@@ -20,9 +25,9 @@ import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-public class WeatherViewModelTest extends BaseTest{
+public class CityWeatherViewModelTest extends BaseTest{
 
-    WeatherViewModel viewModel;
+    CityWeatherViewModel viewModel;
 
     @Mock
     WeatherDatabase weatherDatabase;
@@ -36,6 +41,12 @@ public class WeatherViewModelTest extends BaseTest{
     @Mock
     CityWeatherDao cityWeatherDao;
 
+    @Mock
+    BusinessUtils businessUtils;
+
+    @Mock
+    WeatherService weatherService;
+
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
@@ -43,7 +54,8 @@ public class WeatherViewModelTest extends BaseTest{
         when(rxScheduler.mainThread()).thenReturn(Schedulers.trampoline());
         when(weatherDatabase.locationEntityDao()).thenReturn(locationEntityDao);
         when(weatherDatabase.cityWeatherDao()).thenReturn(cityWeatherDao);
-        viewModel = new WeatherViewModel(weatherDatabase, rxScheduler);
+        viewModel = new CityWeatherViewModel(weatherService, weatherDatabase,
+                businessUtils, rxScheduler);
     }
 
     @After
@@ -52,9 +64,15 @@ public class WeatherViewModelTest extends BaseTest{
 
     @Test
     public void getWeatherData() {
-        when(cityWeatherDao.get(anyInt())).thenReturn(Single.just(new CityWeather()));
+        when(cityWeatherDao.get(anyInt())).thenReturn(Single.just(new CityWeather(){{
+            weatherList = new ArrayList<>();
+            city = new City(){{
+                cityName = "name";
+                locationId = 0;
+            }};
+        }}));
         viewModel.getWeatherData(0);
         verify(cityWeatherDao).get(0);
-        assertNotNull(viewModel.cityWeather.getValue());
+        assertNotNull(viewModel.weatherList.getValue());
     }
 }
