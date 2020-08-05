@@ -3,6 +3,8 @@ package com.karthik.myweather.ui.viewModel;
 import com.karthik.myweather.Event;
 import com.karthik.myweather.Permission;
 import com.karthik.myweather.data.WeatherDatabase;
+import com.karthik.myweather.data.dao.CityWeatherDao;
+import com.karthik.myweather.data.dao.LocationEntityDao;
 import com.karthik.myweather.navigation.NavEvent;
 import com.karthik.myweather.network.WeatherService;
 import com.karthik.myweather.network.model.Location;
@@ -55,7 +57,7 @@ public class SearchCityViewModelTest extends BaseTest{
 
     @Before
     public void setUp() throws Exception {
-        MockitoAnnotations.initMocks(this);
+        MockitoAnnotations.openMocks(this);
         when(rxScheduler.io()).thenReturn(Schedulers.trampoline());
         when(rxScheduler.mainThread()).thenReturn(Schedulers.trampoline());
         when(weatherDatabase.locationEntityDao()).thenReturn(locationEntityDao);
@@ -75,10 +77,7 @@ public class SearchCityViewModelTest extends BaseTest{
     @Test
     public void submitQuery() {
         List<Location> locations = new ArrayList<>();
-        locations.add(new Location(){{
-            title = "title";
-            locationId = 99;
-        }});
+        locations.add(new Location("title", 99));
         when(weatherService.getQueryResults(any()))
                 .thenReturn(Single.just(locations));
         when(weatherDatabase.locationEntityDao().addAll(anyList()))
@@ -112,10 +111,7 @@ public class SearchCityViewModelTest extends BaseTest{
     @Test
     public void getLocationResults() {
         List<Location> locations = new ArrayList<>();
-        locations.add(new Location(){{
-            title = "title";
-            locationId = 99;
-        }});
+        locations.add(new Location("title", 99));
         when(weatherService.getLocationResults(any()))
                 .thenReturn(Single.just(locations));
         when(weatherDatabase.locationEntityDao().addAll(anyList()))

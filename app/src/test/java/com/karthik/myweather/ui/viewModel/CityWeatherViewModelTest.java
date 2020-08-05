@@ -1,6 +1,9 @@
 package com.karthik.myweather.ui.viewModel;
 
 import com.karthik.myweather.data.WeatherDatabase;
+import com.karthik.myweather.data.dao.CityWeatherDao;
+import com.karthik.myweather.data.dao.LocationEntityDao;
+import com.karthik.myweather.data.entities.City;
 import com.karthik.myweather.data.entities.CityWeather;
 import com.karthik.myweather.network.WeatherService;
 import com.karthik.myweather.utils.BusinessUtils;
@@ -46,7 +49,7 @@ public class CityWeatherViewModelTest extends BaseTest{
 
     @Before
     public void setUp() throws Exception {
-        MockitoAnnotations.initMocks(this);
+        MockitoAnnotations.openMocks(this);
         when(rxScheduler.io()).thenReturn(Schedulers.trampoline());
         when(rxScheduler.mainThread()).thenReturn(Schedulers.trampoline());
         when(weatherDatabase.locationEntityDao()).thenReturn(locationEntityDao);
@@ -61,13 +64,8 @@ public class CityWeatherViewModelTest extends BaseTest{
 
     @Test
     public void getWeatherData() {
-        when(cityWeatherDao.get(anyInt())).thenReturn(Single.just(new CityWeather(){{
-            weatherList = new ArrayList<>();
-            city = new City(){{
-                cityName = "name";
-                locationId = 0;
-            }};
-        }}));
+        when(cityWeatherDao.get(anyInt())).thenReturn(Single.just(new CityWeather
+                (new City(0, "name"), new ArrayList<>())));
         viewModel.getWeatherData(0);
         verify(cityWeatherDao).get(0);
         assertNotNull(viewModel.weatherList.getValue());

@@ -1,6 +1,8 @@
 package com.karthik.myweather.ui.viewModel;
 
 import com.karthik.myweather.data.WeatherDatabase;
+import com.karthik.myweather.data.dao.CityWeatherDao;
+import com.karthik.myweather.data.dao.LocationEntityDao;
 import com.karthik.myweather.data.entities.CityWeather;
 import com.karthik.myweather.network.WeatherService;
 import com.karthik.myweather.network.model.ConsolidatedWeather;
@@ -49,7 +51,7 @@ public class SelectCityViewModelTest extends BaseTest{
 
     @Before
     public void setUp() throws Exception {
-        MockitoAnnotations.initMocks(this);
+        MockitoAnnotations.openMocks(this);
         when(rxScheduler.io()).thenReturn(Schedulers.trampoline());
         when(rxScheduler.mainThread()).thenReturn(Schedulers.trampoline());
         when(weatherDatabase.locationEntityDao()).thenReturn(locationEntityDao);
@@ -69,9 +71,8 @@ public class SelectCityViewModelTest extends BaseTest{
 
     @Test
     public void getWeatherData() {
-        ConsolidatedWeather consolidatedWeather = new ConsolidatedWeather(){{
-            consolidatedWeather = new ArrayList<>();
-        }};
+        ConsolidatedWeather consolidatedWeather = new ConsolidatedWeather(new ArrayList<>(),
+                0, "city");
         when(weatherService.getConsolidatedWeather(anyLong()))
                 .thenReturn(Single.just(consolidatedWeather));
         when(businessUtils.convertToDatabaseEntiry(anyInt(), any(ConsolidatedWeather.class)))
@@ -84,9 +85,9 @@ public class SelectCityViewModelTest extends BaseTest{
 
     @Test
     public void loadLocations() {
-        when(locationEntityDao.all).thenReturn(Single.just(new ArrayList<>()));
+        when(locationEntityDao.getAll()).thenReturn(Single.just(new ArrayList<>()));
         viewModel.loadLocations();
-        verify(locationEntityDao).all;
+        verify(locationEntityDao).getAll();
         assertNotNull(viewModel.locations.getValue());
     }
 }

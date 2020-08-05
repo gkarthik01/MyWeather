@@ -5,6 +5,7 @@ import com.karthik.myweather.data.entities.CityWeather
 import com.karthik.myweather.data.entities.Weather
 import com.karthik.myweather.network.model.ConsolidatedWeather
 import java.util.stream.Collectors
+import javax.inject.Inject
 
 class BusinessUtils {
     fun convertToDatabaseEntiry(locationIdToSearch: Int, consolidatedWeather: ConsolidatedWeather): CityWeather {
