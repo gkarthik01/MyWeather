@@ -86,9 +86,9 @@ public class SelectCityViewModelTest extends BaseTest{
 
     @Test
     public void loadLocations() {
-        when(locationEntityDao.getAll()).thenReturn(Single.just(new ArrayList<>()));
+        when(locationEntityDao.all).thenReturn(Single.just(new ArrayList<>()));
         viewModel.loadLocations();
-        verify(locationEntityDao).getAll();
+        verify(locationEntityDao).all;
         assertNotNull(viewModel.locations.getValue());
     }
 }

@@ -62,9 +62,8 @@ public class CityWeatherViewModel extends BaseViewModel {
                     compositeDisposable.add(disposable);
                 })
                 .flatMap(weatherList -> {
-                    ConsolidatedWeather consolidatedWeather = new ConsolidatedWeather(){{
-                        this.consolidatedWeather = weatherList;
-                    }};
+                    ConsolidatedWeather consolidatedWeather = new ConsolidatedWeather();
+                    consolidatedWeather.setConsolidatedWeather(weatherList);
                     CityWeather cityWeather = businessUtils.convertToDatabaseEntiry(
                             locationIdParam, consolidatedWeather);
                     return Completable.fromAction(() -> {

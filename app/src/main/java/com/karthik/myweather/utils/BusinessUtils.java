@@ -1,6 +1,5 @@
 package com.karthik.myweather.utils;
 
-import com.karthik.myweather.data.entities.City;
 import com.karthik.myweather.data.entities.CityWeather;
 import com.karthik.myweather.data.entities.Weather;
 import com.karthik.myweather.network.model.ConsolidatedWeather;
@@ -12,20 +11,20 @@ public class BusinessUtils {
     public CityWeather convertToDatabaseEntiry(int locationIdToSearch, ConsolidatedWeather consolidatedWeather) {
         CityWeather cityWeather = new CityWeather();
         cityWeather.city = new City(){{
-            locationId = consolidatedWeather.locationId;
-            cityName = consolidatedWeather.cityName;
+            locationId = consolidatedWeather.getLocationId();
+            cityName = consolidatedWeather.getCityName();
         }};
         cityWeather.weatherList = consolidatedWeather
-                .consolidatedWeather
+                .getConsolidatedWeather()
                 .stream()
                 .map(locationWeather -> new Weather(){{
                     locationId = locationIdToSearch;
-                    date = locationWeather.date;
-                    minTemperature = locationWeather.minTemperature;
-                    maxTemperature = locationWeather.maxTemperature;
-                    windSpeed = locationWeather.windSpeed;
-                    weatherCode = locationWeather.weatherStateAbbr;
-                    weatherDescription = locationWeather.weatherStateName;
+                    date = locationWeather.getDate();
+                    minTemperature = locationWeather.getMinTemperature();
+                    maxTemperature = locationWeather.getMaxTemperature();
+                    windSpeed = locationWeather.getWindSpeed();
+                    weatherCode = locationWeather.getWeatherStateAbbr();
+                    weatherDescription = locationWeather.getWeatherStateName();
                 }})
                 .collect(Collectors.toList());
         return cityWeather;

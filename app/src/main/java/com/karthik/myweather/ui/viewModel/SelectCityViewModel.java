@@ -3,17 +3,13 @@ package com.karthik.myweather.ui.viewModel;
 import androidx.lifecycle.MutableLiveData;
 
 import com.karthik.myweather.data.WeatherDatabase;
-import com.karthik.myweather.data.entities.City;
 import com.karthik.myweather.data.entities.CityWeather;
-import com.karthik.myweather.data.entities.Weather;
 import com.karthik.myweather.data.entities.LocationEntity;
 import com.karthik.myweather.network.WeatherService;
-import com.karthik.myweather.network.model.ConsolidatedWeather;
 import com.karthik.myweather.utils.BusinessUtils;
 import com.karthik.myweather.utils.RxScheduler;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
@@ -44,8 +40,7 @@ public class SelectCityViewModel extends BaseViewModel {
     }
 
     public void loadLocations() {
-        weatherDatabase.locationEntityDao()
-                .getAll()
+        weatherDatabase.locationEntityDao().all
                 .doOnSubscribe(disposable -> {
                     isLoading.postValue(true);
                     compositeDisposable.add(disposable);

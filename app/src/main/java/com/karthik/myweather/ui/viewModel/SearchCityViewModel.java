@@ -78,8 +78,8 @@ public class SearchCityViewModel extends BaseViewModel {
     public Completable addToDatabase(List<com.karthik.myweather.network.model.Location> locations) {
         List<LocationEntity> entities = locations.stream().map(
                 location -> new LocationEntity() {{
-                    title = location.title;
-                    locationId = location.locationId;
+                    title = location.getTitle();
+                    locationId = location.getLocationId();
                 }}).collect(Collectors.toList());
         return weatherDatabase.locationEntityDao().deleteAll()
                 .andThen(weatherDatabase.locationEntityDao().addAll(entities));
@@ -100,8 +100,8 @@ public class SearchCityViewModel extends BaseViewModel {
                 .flatMapCompletable(locations -> {
                     List<LocationEntity> entities = locations.stream().map(
                             location -> new LocationEntity() {{
-                                title = location.title;
-                                locationId = location.locationId;
+                                title = location.getTitle();
+                                locationId = location.getLocationId();
                             }}).collect(Collectors.toList());
                     return weatherDatabase.locationEntityDao().deleteAll()
                             .andThen(weatherDatabase.locationEntityDao().addAll(entities));
