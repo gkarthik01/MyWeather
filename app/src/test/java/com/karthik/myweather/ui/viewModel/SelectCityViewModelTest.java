@@ -1,8 +1,6 @@
 package com.karthik.myweather.ui.viewModel;
 
 import com.karthik.myweather.data.WeatherDatabase;
-import com.karthik.myweather.data.dao.CityWeatherDao;
-import com.karthik.myweather.data.dao.LocationEntityDao;
 import com.karthik.myweather.data.entities.CityWeather;
 import com.karthik.myweather.network.WeatherService;
 import com.karthik.myweather.network.model.ConsolidatedWeather;

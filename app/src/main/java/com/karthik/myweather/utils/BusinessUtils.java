@@ -1,5 +1,6 @@
 package com.karthik.myweather.utils;
 
+import com.karthik.myweather.data.entities.City;
 import com.karthik.myweather.data.entities.CityWeather;
 import com.karthik.myweather.data.entities.Weather;
 import com.karthik.myweather.network.model.ConsolidatedWeather;
@@ -10,23 +11,21 @@ public class BusinessUtils {
 
     public CityWeather convertToDatabaseEntiry(int locationIdToSearch, ConsolidatedWeather consolidatedWeather) {
         CityWeather cityWeather = new CityWeather();
-        cityWeather.city = new City(){{
-            locationId = consolidatedWeather.getLocationId();
-            cityName = consolidatedWeather.getCityName();
-        }};
-        cityWeather.weatherList = consolidatedWeather
+        City city = new City();
+        city.setLocationId(consolidatedWeather.getLocationId());
+        city.setCityName(consolidatedWeather.getCityName());
+        cityWeather.setCity(city);
+        cityWeather.setWeatherList(consolidatedWeather
                 .getConsolidatedWeather()
                 .stream()
-                .map(locationWeather -> new Weather(){{
-                    locationId = locationIdToSearch;
-                    date = locationWeather.getDate();
-                    minTemperature = locationWeather.getMinTemperature();
-                    maxTemperature = locationWeather.getMaxTemperature();
-                    windSpeed = locationWeather.getWindSpeed();
-                    weatherCode = locationWeather.getWeatherStateAbbr();
-                    weatherDescription = locationWeather.getWeatherStateName();
-                }})
-                .collect(Collectors.toList());
+                .map(locationWeather -> new Weather(locationIdToSearch,
+                                locationWeather.getDate(),
+                                locationWeather.getMinTemperature(),
+                                locationWeather.getMaxTemperature(),
+                                locationWeather.getWindSpeed(),
+                                locationWeather.getWeatherStateAbbr(),
+                                locationWeather.getWeatherStateName()))
+                .collect(Collectors.toList()));
         return cityWeather;
     }
 

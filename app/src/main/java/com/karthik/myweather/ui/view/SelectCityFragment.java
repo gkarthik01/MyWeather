@@ -40,7 +40,7 @@ public class SelectCityFragment extends BaseFragment {
         binding.rvItems.addItemDecoration(new DividerItemDecoration(getActivity(),
                 DividerItemDecoration.VERTICAL));
         adapter = new ItemsAdapter(locationEntity -> {
-            mViewModel.getWeatherData(locationEntity.locationId);
+            mViewModel.getWeatherData(locationEntity.getLocationId());
         });
         binding.rvItems.setAdapter(adapter);
         binding.setViewModel(mViewModel);
@@ -89,7 +89,7 @@ public class SelectCityFragment extends BaseFragment {
         }
 
         public void bind(LocationEntity locationEntity, OnItemClickListener onClickListener){
-            textView.setText(locationEntity.title);
+            textView.setText(locationEntity.getTitle());
             itemView.setOnClickListener(v -> onClickListener.onItemClicked(locationEntity));
         }
     }

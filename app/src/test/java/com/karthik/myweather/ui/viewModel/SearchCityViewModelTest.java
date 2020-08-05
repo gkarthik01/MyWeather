@@ -3,8 +3,6 @@ package com.karthik.myweather.ui.viewModel;
 import com.karthik.myweather.Event;
 import com.karthik.myweather.Permission;
 import com.karthik.myweather.data.WeatherDatabase;
-import com.karthik.myweather.data.dao.CityWeatherDao;
-import com.karthik.myweather.data.dao.LocationEntityDao;
 import com.karthik.myweather.navigation.NavEvent;
 import com.karthik.myweather.network.WeatherService;
 import com.karthik.myweather.network.model.Location;

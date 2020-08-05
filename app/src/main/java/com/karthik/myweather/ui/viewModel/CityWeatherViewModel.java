@@ -47,8 +47,8 @@ public class CityWeatherViewModel extends BaseViewModel {
                 .observeOn(scheduler.mainThread())
                 .subscribe(cityWeather -> {
                     isLoading.postValue(false);
-                    cityName.postValue(cityWeather.city.cityName);
-                    this.weatherList.postValue(cityWeather.weatherList);
+                    cityName.postValue(cityWeather.getCity().getCityName());
+                    this.weatherList.postValue(cityWeather.getWeatherList());
                 }, throwable -> {
                     isLoading.postValue(false);
                     error.postValue(Error);
@@ -77,7 +77,7 @@ public class CityWeatherViewModel extends BaseViewModel {
                 .observeOn(scheduler.mainThread())
                 .subscribe(cityWeather -> {
                     isLoading.postValue(false);
-                    this.weatherList.postValue(cityWeather.weatherList);
+                    this.weatherList.postValue(cityWeather.getWeatherList());
                 }, throwable -> {
                     isLoading.postValue(false);
                     error.postValue(Error);

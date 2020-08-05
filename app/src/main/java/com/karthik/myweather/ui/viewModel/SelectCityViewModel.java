@@ -40,7 +40,7 @@ public class SelectCityViewModel extends BaseViewModel {
     }
 
     public void loadLocations() {
-        weatherDatabase.locationEntityDao().all
+        weatherDatabase.locationEntityDao().getAll()
                 .doOnSubscribe(disposable -> {
                     isLoading.postValue(true);
                     compositeDisposable.add(disposable);

@@ -36,15 +36,15 @@ public class WeatherRecyclerViewAdapter extends RecyclerView.Adapter<WeatherView
     @Override
     public void onBindViewHolder(@NonNull WeatherViewHolder holder, int position) {
         holder.minTemperature.setText(String.format("%2f",
-                weatherList.get(position).minTemperature));
+                weatherList.get(position).getMinTemperature()));
         holder.maxTemperature.setText(String.format("%2f",
-                weatherList.get(position).maxTemperature));
+                weatherList.get(position).getMaxTemperature()));
         holder.windSpeed.setText(String.format("%2f",
-                weatherList.get(position).windSpeed));
+                weatherList.get(position).getWindSpeed()));
         holder.weatherDescription.setText(String.valueOf(
-                weatherList.get(position).weatherDescription));
-        holder.dateTextView.setText(weatherList.get(position).date);
-        Picasso.with(context).load(UIUtils.getImgUrl(weatherList.get(position).weatherCode))
+                weatherList.get(position).getWeatherDescription()));
+        holder.dateTextView.setText(weatherList.get(position).getDate());
+        Picasso.with(context).load(UIUtils.getImgUrl(weatherList.get(position).getWeatherCode()))
                 .placeholder(R.drawable.hc)
                 .fit()
                 .into(holder.weatherImageView);

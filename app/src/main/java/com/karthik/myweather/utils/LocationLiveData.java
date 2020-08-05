@@ -22,30 +22,23 @@ public class LocationLiveData extends LiveData<Location> implements LocationList
         this.context = context;
     }
 
-    @RequiresPermission(anyOf = {"android.permission.ACCESS_FINE_LOCATION", "android.permission.ACCESS_COARSE_LOCATION"})
-    @android.support.annotation.RequiresPermission(anyOf = {"android.permission.ACCESS_FINE_LOCATION", "android.permission.ACCESS_COARSE_LOCATION"})
+
     private void requestLocation() {
         locationManager = ContextCompat.getSystemService(context, LocationManager.class);
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0f, this);
     }
 
-    @RequiresPermission(anyOf = {"android.permission.ACCESS_FINE_LOCATION", "android.permission.ACCESS_COARSE_LOCATION"})
-    @android.support.annotation.RequiresPermission(anyOf = {"android.permission.ACCESS_FINE_LOCATION", "android.permission.ACCESS_COARSE_LOCATION"})
     @Override
     protected void onActive() {
         requestLocation();
     }
 
-    @RequiresPermission(anyOf = {"android.permission.ACCESS_FINE_LOCATION", "android.permission.ACCESS_COARSE_LOCATION"})
-    @android.support.annotation.RequiresPermission(anyOf = {"android.permission.ACCESS_FINE_LOCATION", "android.permission.ACCESS_COARSE_LOCATION"})
     @Override
     protected void onInactive() {
         locationManager.removeUpdates(this);
         locationManager = null;
     }
 
-    @RequiresPermission(anyOf = {"android.permission.ACCESS_FINE_LOCATION", "android.permission.ACCESS_COARSE_LOCATION"})
-    @android.support.annotation.RequiresPermission(anyOf = {"android.permission.ACCESS_FINE_LOCATION", "android.permission.ACCESS_COARSE_LOCATION"})
     @Override
     public void onLocationChanged(@NonNull Location location) {
         postValue(location);
