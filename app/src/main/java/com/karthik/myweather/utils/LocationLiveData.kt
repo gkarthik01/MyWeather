@@ -9,11 +9,11 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.LiveData
 import javax.inject.Inject
 
-class LocationLiveData @Inject constructor(private val context: Context) : LiveData<Location?>(), LocationListener {
-    private var locationManager: LocationManager? = null
+class LocationLiveData @Inject constructor(private val context: Context) : LiveData<Location>(), LocationListener {
+    private lateinit var locationManager: LocationManager
     private fun requestLocation() {
-        locationManager = ContextCompat.getSystemService(context, LocationManager::class.java)
-        locationManager!!.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0f, this)
+        locationManager = ContextCompat.getSystemService(context, LocationManager::class.java)!!
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0f, this)
     }
 
     override fun onActive() {
@@ -21,13 +21,13 @@ class LocationLiveData @Inject constructor(private val context: Context) : LiveD
     }
 
     override fun onInactive() {
-        locationManager!!.removeUpdates(this)
-        locationManager = null
+        locationManager.removeUpdates(this)
+        //let GC know locationManager can be removed
     }
 
     override fun onLocationChanged(location: Location) {
         postValue(location)
-        locationManager!!.removeUpdates(this)
+        locationManager.removeUpdates(this)
     }
 
     override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {}

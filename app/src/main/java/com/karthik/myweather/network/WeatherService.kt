@@ -10,15 +10,15 @@ import retrofit2.http.Query
 
 interface WeatherService {
     @GET("location/search/")
-    fun getQueryResults(@Query("query") query: String?): Single<List<Location?>?>?
+    fun getQueryResults(@Query("query") query: String?): Single<List<Location>?>
 
     @GET("location/{location}/")
-    fun getConsolidatedWeather(@Path("location") locationId: Long): Single<ConsolidatedWeather?>?
+    fun getConsolidatedWeather(@Path("location") locationId: Long): Single<ConsolidatedWeather?>
 
     @GET("location/search/")
-    fun getLocationResults(@Query("lattlong") latLong: String?): Single<List<Location?>?>?
+    fun getLocationResults(@Query("lattlong") latLong: String?): Single<List<Location>?>
 
     @GET("location/{location}/{date}")
     fun getConsolidatedWeather(
-            @Path("location") locationId: Long, @Path("date") date: String?): Single<List<LocationWeather?>?>?
+            @Path("location") locationId: Long, @Path("date") date: String?): Single<List<LocationWeather>?>
 }
