@@ -1,5 +1,6 @@
 package com.karthik.myweather.ui.viewModel
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import com.karthik.myweather.data.WeatherDatabase
 import com.karthik.myweather.data.entities.LocationEntity
@@ -11,16 +12,12 @@ import io.reactivex.Completable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.functions.Consumer
-import javax.inject.Inject
 
-class SelectCityViewModel @Inject constructor(private val weatherService: WeatherService,
-                                              private val weatherDatabase: WeatherDatabase,
-                                              private val businessUtils: BusinessUtils,
-                                              private val scheduler: RxScheduler) : BaseViewModel() {
-    @JvmField
+class SelectCityViewModel @ViewModelInject constructor(private val weatherService: WeatherService,
+                                                       private val weatherDatabase: WeatherDatabase,
+                                                       private val businessUtils: BusinessUtils,
+                                                       private val scheduler: RxScheduler) : BaseViewModel() {
     val locations: MutableLiveData<List<LocationEntity>> = MutableLiveData()
-
-    @JvmField
     val locationId = MutableLiveData<Int>()
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
     fun loadLocations() {

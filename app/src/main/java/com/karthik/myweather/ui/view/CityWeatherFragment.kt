@@ -7,8 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.karthik.myweather.R
@@ -16,11 +16,13 @@ import com.karthik.myweather.data.entities.Weather
 import com.karthik.myweather.databinding.CityWeatherFragmentBinding
 import com.karthik.myweather.ui.adapter.WeatherRecyclerViewAdapter
 import com.karthik.myweather.ui.viewModel.CityWeatherViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.*
 
+@AndroidEntryPoint
 class CityWeatherFragment : BaseFragment() {
-    private lateinit var mViewModel: CityWeatherViewModel
+    private val mViewModel: CityWeatherViewModel by viewModels()
     private lateinit var binding: CityWeatherFragmentBinding
     private lateinit var adapter: WeatherRecyclerViewAdapter
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -53,8 +55,6 @@ class CityWeatherFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mViewModel = ViewModelProviders.of(this, viewModelFactory)
-                .get(CityWeatherViewModel::class.java)
         registerForData()
         registerForLoadingIndicator(mViewModel)
         registerForErrorDialog(mViewModel)

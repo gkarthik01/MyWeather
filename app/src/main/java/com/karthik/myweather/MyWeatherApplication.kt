@@ -1,14 +1,7 @@
 package com.karthik.myweather
 
-import com.karthik.myweather.di.DaggerApplicationComponent
-import dagger.android.AndroidInjector
-import dagger.android.support.DaggerApplication
+import android.app.Application
+import dagger.hilt.android.HiltAndroidApp
 
-class MyWeatherApplication : DaggerApplication() {
-
-    override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
-        val component = DaggerApplicationComponent.builder().application(this).build()
-        component.inject(this)
-        return component
-    }
-}
+@HiltAndroidApp
+class MyWeatherApplication : Application()

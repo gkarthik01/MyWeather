@@ -1,5 +1,6 @@
 package com.karthik.myweather.ui.viewModel
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import com.karthik.myweather.Event
@@ -14,21 +15,16 @@ import io.reactivex.Completable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import java.util.stream.Collectors
-import javax.inject.Inject
 
-class SearchCityViewModel @Inject constructor(private val weatherService: WeatherService,
-                                              private val weatherDatabase: WeatherDatabase, private val scheduler: RxScheduler) : BaseViewModel() {
-    @JvmField
+class SearchCityViewModel @ViewModelInject constructor(private val weatherService: WeatherService,
+                                                       private val weatherDatabase: WeatherDatabase, private val scheduler: RxScheduler) : BaseViewModel() {
     val query = MutableLiveData<String>()
     val isValid = MediatorLiveData<Boolean>()
 
-    @JvmField
     val permissionRequest = MutableLiveData<Event>()
 
-    @JvmField
     val locationRequest = MutableLiveData<Event>()
 
-    @JvmField
     val navEvent = MutableLiveData<NavEvent>()
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
     fun init() {

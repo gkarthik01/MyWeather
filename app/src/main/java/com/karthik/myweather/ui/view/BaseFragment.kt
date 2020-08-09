@@ -4,22 +4,16 @@ import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.karthik.myweather.R
-import com.karthik.myweather.di.ViewModelFactory
 import com.karthik.myweather.ui.viewModel.BaseViewModel
-import dagger.android.support.DaggerFragment
-import javax.inject.Inject
 
-abstract class BaseFragment : DaggerFragment() {
-    @JvmField
-    @Inject
-    var viewModelFactory: ViewModelFactory? = null
+abstract class BaseFragment : Fragment() {
 
-    @JvmField
-    protected var navController: NavController? = null
+    protected lateinit var navController: NavController
 
     protected fun registerForErrorDialog(viewModel: BaseViewModel) {
         viewModel.error.observe(this, Observer { showErrorDialog() })

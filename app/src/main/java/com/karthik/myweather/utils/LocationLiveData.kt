@@ -7,9 +7,11 @@ import android.location.LocationManager
 import android.os.Bundle
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LiveData
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
-class LocationLiveData @Inject constructor(private val context: Context) : LiveData<Location>(), LocationListener {
+class LocationLiveData @Inject constructor(
+        @ApplicationContext private val context: Context) : LiveData<Location>(), LocationListener {
     private lateinit var locationManager: LocationManager
     private fun requestLocation() {
         locationManager = ContextCompat.getSystemService(context, LocationManager::class.java)!!

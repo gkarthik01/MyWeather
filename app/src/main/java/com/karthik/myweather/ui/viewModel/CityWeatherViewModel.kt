@@ -1,5 +1,6 @@
 package com.karthik.myweather.ui.viewModel
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import com.karthik.myweather.data.WeatherDatabase
 import com.karthik.myweather.data.entities.CityWeather
@@ -13,16 +14,13 @@ import io.reactivex.Completable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.functions.Consumer
-import javax.inject.Inject
 
-class CityWeatherViewModel @Inject constructor(
+class CityWeatherViewModel @ViewModelInject constructor(
         private val weatherService: WeatherService, private val weatherDatabase: WeatherDatabase,
         private val businessUtils: BusinessUtils, private val scheduler: RxScheduler) : BaseViewModel() {
 
-    @JvmField
     val weatherList = MutableLiveData<List<Weather>>()
 
-    @JvmField
     val cityName = MutableLiveData<String>()
     private val compositeDisposable = CompositeDisposable()
     fun getWeatherData(locationId: Int) {

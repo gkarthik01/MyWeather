@@ -9,8 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.karthik.myweather.Event
 import com.karthik.myweather.Permission
 import com.karthik.myweather.R
@@ -18,10 +18,12 @@ import com.karthik.myweather.databinding.SearchCityFragmentBinding
 import com.karthik.myweather.navigation.NavEvent
 import com.karthik.myweather.ui.viewModel.SearchCityViewModel
 import com.karthik.myweather.utils.LocationLiveData
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class SearchCityFragment : BaseFragment() {
-    private lateinit var mViewModel: SearchCityViewModel
+    private val mViewModel: SearchCityViewModel by viewModels()
     private lateinit var binding: SearchCityFragmentBinding
 
     @Inject
@@ -36,7 +38,6 @@ class SearchCityFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mViewModel = ViewModelProviders.of(this, viewModelFactory).get(SearchCityViewModel::class.java)
         mViewModel.init()
         registerForLocationPermission()
         registerForGetLocation()

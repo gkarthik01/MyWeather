@@ -5,8 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -14,10 +14,12 @@ import com.karthik.myweather.R
 import com.karthik.myweather.data.entities.LocationEntity
 import com.karthik.myweather.databinding.SelectCityFragmentBinding
 import com.karthik.myweather.ui.viewModel.SelectCityViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.template_location_item.view.*
 
+@AndroidEntryPoint
 class SelectCityFragment : BaseFragment() {
-    private lateinit var mViewModel: SelectCityViewModel
+    private val mViewModel: SelectCityViewModel by viewModels()
     private lateinit var binding: SelectCityFragmentBinding
     private lateinit var adapter: ItemsAdapter
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -41,8 +43,6 @@ class SelectCityFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mViewModel = ViewModelProviders.of(this, viewModelFactory)
-                .get(SelectCityViewModel::class.java)
         registerForLoadingIndicator(mViewModel)
         registerForErrorDialog(mViewModel)
         registerLocations()
