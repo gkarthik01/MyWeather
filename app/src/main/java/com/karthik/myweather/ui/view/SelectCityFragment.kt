@@ -58,12 +58,16 @@ class SelectCityFragment : BaseFragment() {
         mViewModel.locationId.observe(this, Observer { locationId: Int? ->
             val bundle = Bundle()
             bundle.putInt(CityWeatherFragment.Extra_Location_Id, locationId!!)
-            navController!!.navigate(R.id.action_selectLocationFragment_to_weatherFragment, bundle)
+            navController.navigate(R.id.action_selectLocationFragment_to_weatherFragment, bundle)
         })
     }
 
     private fun registerLocations() {
-        mViewModel.locations.observe(this, Observer { locationEntities: List<LocationEntity>? -> adapter.setLocationEntities(locationEntities) })
+        mViewModel.locations.observe(this, Observer { locationEntities: List<LocationEntity>? ->
+            if (locationEntities != null) {
+                adapter.setLocationEntities(locationEntities)
+            }
+        })
     }
 
     internal inner class ItemViewHolder(var view: View) : RecyclerView.ViewHolder(view) {
@@ -78,13 +82,16 @@ class SelectCityFragment : BaseFragment() {
         fun onItemClicked(locationEntity: LocationEntity)
     }
 
-    internal inner class ItemsAdapter(private val clickListener: OnItemClickListener) : RecyclerView.Adapter<ItemViewHolder>() {
-        fun setLocationEntities(locationEntities: List<LocationEntity>?) {
+    internal inner class ItemsAdapter(
+            private val clickListener: OnItemClickListener) :
+            RecyclerView.Adapter<ItemViewHolder>() {
+        private lateinit var locationEntities: List<LocationEntity>
+
+        fun setLocationEntities(locationEntities: List<LocationEntity>) {
             this.locationEntities = locationEntities
             notifyDataSetChanged()
         }
 
-        private var locationEntities: List<LocationEntity>? = null
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
             val v = LayoutInflater.from(parent.context)
                     .inflate(R.layout.template_location_item, parent, false)
@@ -92,7 +99,7 @@ class SelectCityFragment : BaseFragment() {
         }
 
         override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-            holder.bind(locationEntities!![position], clickListener)
+            holder.bind(locationEntities[position], clickListener)
         }
 
         override fun getItemCount(): Int {

@@ -56,7 +56,7 @@ class SearchCityFragment : BaseFragment() {
     private fun registerNavEvent() {
         mViewModel.navEvent.observe(this, Observer { e: NavEvent? ->
             when (e) {
-                NavEvent.LocationToCity -> navController!!.navigate(R.id.action_mainFragment_to_selectLocationFragment)
+                NavEvent.LocationToCity -> navController.navigate(R.id.action_mainFragment_to_selectLocationFragment)
             }
         })
     }
