@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.main_activity.*
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    // Test Commit 1
+    // Test Commit release 1.0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
